@@ -1,5 +1,3 @@
-import swaggerJsdoc from "swagger-jsdoc";
-
 const options = {
   definition: {
     openapi: "3.0.0",
@@ -10,7 +8,7 @@ const options = {
     },
     servers: [
       {
-        url: "http://localhost:8080",
+        url: process.env.SWAGGER_SERVER_URL || "http://localhost:8080",
       },
     ],
     components: {
@@ -22,15 +20,7 @@ const options = {
         },
       },
     },
-    security: [
-      {
-        ApiKeyAuth: [],
-      },
-    ],
+    security: [{ ApiKeyAuth: [] }],
   },
-  apis: ["./src/routes/*.js"], // where docs are written
+  apis: ["./src/routes/*.js"],
 };
-
-const swaggerSpec = swaggerJsdoc(options);
-
-export default swaggerSpec;
