@@ -8,7 +8,7 @@ const options = {
     },
     servers: [
       {
-        url: process.env.SWAGGER_SERVER_URL
+        url: process.env.SWAGGER_SERVER_URL || ""
       },
     ],
     components: {
