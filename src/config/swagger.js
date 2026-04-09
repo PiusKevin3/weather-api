@@ -1,3 +1,5 @@
+import swaggerJsdoc from "swagger-jsdoc";
+
 const options = {
   definition: {
     openapi: "3.0.0",
@@ -8,7 +10,8 @@ const options = {
     },
     servers: [
       {
-        url: process.env.SWAGGER_SERVER_URL || ""
+        // ✅ Empty string = auto-detect current host (works for local + Cloud Run)
+        url: "",
       },
     ],
     components: {
@@ -20,7 +23,17 @@ const options = {
         },
       },
     },
-    security: [{ ApiKeyAuth: [] }],
+    security: [
+      {
+        ApiKeyAuth: [],
+      },
+    ],
   },
   apis: ["./src/routes/*.js"],
 };
+
+// ✅ Generate swagger spec
+const swaggerSpec = swaggerJsdoc(options);
+
+// ✅ IMPORTANT: Default export (this fixes your crash)
+export default swaggerSpec;
